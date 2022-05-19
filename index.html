@@ -7,20 +7,64 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello World!</h1>
+    <h1>Hello Guys!!</h1>
 
-        <input type="text" name="age" id="name" />
-        <input type="number" name="age" id="age" />
-        <button onclick="myFunction()">Add Member</button>
+        <fieldset>
+            <legend>Add member</legend>
+            <input type="text" name="name" id="name" />
+            <input type="number" name="age" id="age" />
+            <button onclick="addMember()">Add Member</button>
+        </fieldset>
+        <br>
 
-
-        <div id="table">
-
-        </div>
+        <div id="editMemberForm"></div>
+        <div id="table"></div>
     <script>
         let members = [];
-        function myFunction(){
-
+        
+        function deleteMember(index){
+            members.splice(index,1); // 1: startIndex 2: numElem
+            renderTable();            
+        }
+        function editMember(index){
+            let newName = document.getElementById('editName').value;
+            let newAge = document.getElementById('editAge').value;
+            members[index] = {
+                name:newName,
+                age:newAge
+            }
+            document.getElementById('editMemberForm').innerHTML = '';
+            renderTable();
+        }
+        function openEditForm(index){
+            let str = `
+                <fieldset>
+                    <legend>Edit Member</legend>
+                    <input type='text' id='editName' value='${members[index].name}'  />
+                    <input type='number' id='editAge' value='${members[index].age}' />
+                    <button onclick='editMember(${index})'>Update</button> 
+                </fieldset>
+            `;
+            document.getElementById('editMemberForm').innerHTML = str;
+        }
+        function renderTable(){
+            let tableStr = `<table border='1'>`;
+                tableStr = tableStr + `<tr><th>Name</th><th>Age</th></tr>`;
+            
+            for(let i=0; i < members.length; i++){
+                tableStr = tableStr + `<tr>
+                    <td>${members[i].name}</td>
+                    <td>${members[i].age}</td>
+                    <td><button onclick="openEditForm(${i})">edit</button></td>
+                    <td><button onclick="deleteMember(${i})">delete</button></td>
+                    </tr>`
+            }
+            tableStr = tableStr + `</table>`;
+            
+            document.getElementById('table').innerHTML = tableStr;
+        }
+        
+        function addMember(){
 
             let name = document.getElementById('name').value;
             let age = document.getElementById('age').value;
@@ -30,89 +74,13 @@
                 'age':age
             };
             members.push(member)
-            
-            let tableStr = `<table border='1'>`;
-                tableStr = tableStr + `<tr><th>Name</th><th>Age</th></tr>`;
-            
-            for(let i=0; i < members.length; i++){
-                tableStr = tableStr + `<tr><td>${members[i].name}</td><td>${members[i].age}</td></tr>`
-            }
 
-
-            tableStr = tableStr + `</table>`;
-            
-            document.getElementById('table').innerHTML = tableStr;
-            
             document.getElementById('name').value = '';
             document.getElementById('age').value = ''
+
+            renderTable();
                
         }   
-
-
-
-        let x = 10;
-
-        x = 20;
-
-        let cars = [10,20,30,40];
-        cars[0] = 50;
-
-        let myArray = []; // myArray.length => 0
-
-        myArray[0] = "Aniket"; // myArray.length => 1
-        myArray[1] = 100; // myArray.length => 2
-        myArray[2] = function(){ // myArray.length => 3
-            return 'Hello'
-        };
-
-        let obj = {
-            name:"Ritesh",
-            age:2
-        };
-        cars[4] = 60; 
-        myArray[3] = obj; // myArray.length => 4
-        myArray[4] = cars; // myArray.length => 5
-
-        // console.log(myArray);
-
-        let arr1 = [10]
-
-        for(let i = 0; i < myArray.length; i++){ // myArray.length => 5
-            console.log('Hello');
-        }
-
-
-        let persons = [];
-
-        persons[0] = {
-            name:"Abhishek",
-            age:18
-        }
-        persons[1] = {
-            name:"Ritesh",
-            age:24
-        }
-        persons[2] = {
-            name:'Amresh',
-            age:28
-        };
-        persons[3] = {
-            name:"Aniket",
-            age:19
-        }
-        let person4 = {
-            name:"Rahul",
-            age:19
-        }
-        persons.push(person4);
-        
-        // persons.length => 5
-        [1,2,3].push(4); // [1,2,3,4]
-
-        for(let i = 0; i < persons.length; i++){ // 5 => i - 0
-            console.log(persons[i].name); // 
-        }
-
         
     </script>
 </body>
