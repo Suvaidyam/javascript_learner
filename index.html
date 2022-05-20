@@ -1,57 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <h1>Hello Guys!!</h1>
+    
+    <fieldset>
+        <legend>Add member</legend>
+        <input type="text" name="name" id="name" />
+        <input type="number" name="age" id="age" />
+        <button onclick="addMember()">Add Member</button>
+    </fieldset>
+    <br>
 
-        <fieldset>
-            <legend>Add member</legend>
-            <input type="text" name="name" id="name" />
-            <input type="number" name="age" id="age" />
-            <button onclick="addMember()">Add Member</button>
-        </fieldset>
-        <br>
-
-        <div id="editMemberForm"></div>
-        <div id="table"></div>
+    <div id="editMemberForm"></div>
+    <div id="table"></div>
     <script>
         let members = [];
-        
-        function deleteMember(index){
-            members.splice(index,1); // 1: startIndex 2: numElem
-            renderTable();            
+        getItem();
+
+        // Session Storage
+        function getItem() {
+            let memData = sessionStorage.getItem('members');
+            if (memData) {
+                members = JSON.parse(memData);
+            } else {
+                setItem();
+            }
         }
-        function editMember(index){
+        function setItem() {
+            sessionStorage.setItem('members', JSON.stringify(members));
+        }
+        // LocalStorage
+        /*
+        function getItem() {
+                let memData = localStorage.getItem('members');
+                if (memData) {
+                    members = JSON.parse(memData);
+                } else {
+                    setItem();
+                }
+            }
+            function setItem() {
+                localStorage.setItem('members', JSON.stringify(members));
+            }
+            */
+        function addMember() {
+
+            let name = document.getElementById('name').value;
+            let age = document.getElementById('age').value;
+
+            let member = {
+                'name': name,
+                'age': age
+            };
+            members.push(member);
+
+            setItem()
+
+
+            document.getElementById('name').value = '';
+            document.getElementById('age').value = ''
+
+            renderTable();
+
+        }
+        function deleteMember(index) {
+            members.splice(index, 1); // 1: startIndex 2: numElem
+            setItem()
+            renderTable();
+        }
+        function editMember(index) {
             let newName = document.getElementById('editName').value;
             let newAge = document.getElementById('editAge').value;
             members[index] = {
-                name:newName,
-                age:newAge
+                name: newName,
+                age: newAge
             }
+
+            setItem();
+
             document.getElementById('editMemberForm').innerHTML = '';
             renderTable();
         }
-        function openEditForm(index){
+
+
+        function openEditForm(index) {
             let str = `
                 <fieldset>
                     <legend>Edit Member</legend>
                     <input type='text' id='editName' value='${members[index].name}'  />
                     <input type='number' id='editAge' value='${members[index].age}' />
-                    <button onclick='editMember(${index})'>Update</button> 
+                    <button onclick='editMember(${index})'>Update</button>
                 </fieldset>
             `;
             document.getElementById('editMemberForm').innerHTML = str;
         }
-        function renderTable(){
+        function renderTable() {
+
             let tableStr = `<table border='1'>`;
-                tableStr = tableStr + `<tr><th>Name</th><th>Age</th></tr>`;
-            
-            for(let i=0; i < members.length; i++){
+            tableStr = tableStr + `<tr><th>Name</th><th>Age</th></tr>`;
+
+            for (let i = 0; i < members.length; i++) {
                 tableStr = tableStr + `<tr>
                     <td>${members[i].name}</td>
                     <td>${members[i].age}</td>
@@ -60,28 +116,15 @@
                     </tr>`
             }
             tableStr = tableStr + `</table>`;
-            
+
             document.getElementById('table').innerHTML = tableStr;
         }
-        
-        function addMember(){
 
-            let name = document.getElementById('name').value;
-            let age = document.getElementById('age').value;
 
-            let member = {
-                'name':name,
-                'age':age
-            };
-            members.push(member)
 
-            document.getElementById('name').value = '';
-            document.getElementById('age').value = ''
 
-            renderTable();
-               
-        }   
-        
+        renderTable();
     </script>
 </body>
+
 </html>
