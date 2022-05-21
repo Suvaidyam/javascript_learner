@@ -10,22 +10,19 @@
 
 <body>
     <h1>Hello Guys!!</h1>
-    
-    <fieldset>
-        <legend>Add member</legend>
-        <input type="text" name="name" id="name" />
-        <input type="number" name="age" id="age" />
-        <button onclick="addMember()">Add Member</button>
-    </fieldset>
+    <div id="form"></div>
     <br>
-
-    <div id="editMemberForm"></div>
+    <hr>
     <div id="table"></div>
     <script>
         let members = [];
         getItem();
+        openAddForm();
+        renderTable();
+
 
         // Session Storage
+
         function getItem() {
             let memData = sessionStorage.getItem('members');
             if (memData) {
@@ -71,14 +68,15 @@
             renderTable();
 
         }
+
         function deleteMember(index) {
             members.splice(index, 1); // 1: startIndex 2: numElem
             setItem()
             renderTable();
         }
         function editMember(index) {
-            let newName = document.getElementById('editName').value;
-            let newAge = document.getElementById('editAge').value;
+            let newName = document.getElementById('name').value;
+            let newAge = document.getElementById('age').value;
             members[index] = {
                 name: newName,
                 age: newAge
@@ -86,21 +84,31 @@
 
             setItem();
 
-            document.getElementById('editMemberForm').innerHTML = '';
+            document.getElementById('form').innerHTML = '';
+            openAddForm();
             renderTable();
         }
-
-
+        function openAddForm() {
+            let str = `
+                <fieldset>
+                    <legend>Add Member</legend>
+                    <input type='text' id='name'  />
+                    <input type='number' id='age' />
+                    <button onclick='addMember()'>Add</button>
+                </fieldset>
+            `;
+            document.getElementById('form').innerHTML = str;
+        }
         function openEditForm(index) {
             let str = `
                 <fieldset>
                     <legend>Edit Member</legend>
-                    <input type='text' id='editName' value='${members[index].name}'  />
-                    <input type='number' id='editAge' value='${members[index].age}' />
+                    <input type='text' id='name' value='${members[index].name}'  />
+                    <input type='number' id='age' value='${members[index].age}' />
                     <button onclick='editMember(${index})'>Update</button>
                 </fieldset>
             `;
-            document.getElementById('editMemberForm').innerHTML = str;
+            document.getElementById('form').innerHTML = str;
         }
         function renderTable() {
 
@@ -120,10 +128,6 @@
             document.getElementById('table').innerHTML = tableStr;
         }
 
-
-
-
-        renderTable();
     </script>
 </body>
 
