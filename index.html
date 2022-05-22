@@ -10,12 +10,30 @@
 
 <body>
     <h1>Hello Guys!!</h1>
-    <div id="form"></div>
+    <fieldset>
+        <legend>
+            <h3 id="legendInfo"></h3>
+        </legend>
+        <input type='text' id='name' onkeyup="checkName();" />
+        <p id="nameError" style="color: red;"></p>
+        <input type='number' id='age' />
+        <p id="ageError"></p>
+        <button id="btn"></button>
+    </fieldset>
+
     <br>
     <hr>
-    <div id="table"></div>
+    <div id="table">
+        <table id="tbl" border="1">
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </table>
+    </div>
     <script>
         let members = [];
+
         getItem();
         openAddForm();
         renderTable();
@@ -48,10 +66,34 @@
                 localStorage.setItem('members', JSON.stringify(members));
             }
             */
+
+        function checkName() {
+            let name = document.getElementById('name').value;
+            for (let i = 0; i < members.length; i++) {
+                if (members[i].name == name) {
+                    document.getElementById('nameError').textContent = 'Name already exists.';
+                    return true;
+                }
+            }
+            document.getElementById('nameError').textContent = '';
+            return false;
+        }
         function addMember() {
 
             let name = document.getElementById('name').value;
             let age = document.getElementById('age').value;
+            console.log(name, age);
+            if (!name) {
+                return alert('Name should not be empty.');
+            }
+            if (!age) {
+                return alert('Age should not be empty.');
+            }
+
+            if (checkName(name)) {
+                alert('Duplicate name')
+                return;
+            }
 
             let member = {
                 'name': name,
@@ -74,58 +116,80 @@
             setItem()
             renderTable();
         }
-        function editMember(index) {
+        function editMember(event) {
             let newName = document.getElementById('name').value;
             let newAge = document.getElementById('age').value;
-            members[index] = {
+            members[event.currentTarget.indexValue] = {
                 name: newName,
                 age: newAge
             }
 
             setItem();
-
-            document.getElementById('form').innerHTML = '';
             openAddForm();
             renderTable();
         }
         function openAddForm() {
-            let str = `
-                <fieldset>
-                    <legend>Add Member</legend>
-                    <input type='text' id='name'  />
-                    <input type='number' id='age' />
-                    <button onclick='addMember()'>Add</button>
-                </fieldset>
-            `;
-            document.getElementById('form').innerHTML = str;
+            document.getElementById('name').value = '';
+            document.getElementById('age').value = '';
+            let btn = document.getElementById('btn');
+
+            btn.removeEventListener('click', editMember);
+            btn.addEventListener('click', addMember);
+
+            btn.textContent = 'Add';
+            document.getElementById('legendInfo').textContent = 'Add member';
         }
         function openEditForm(index) {
-            let str = `
-                <fieldset>
-                    <legend>Edit Member</legend>
-                    <input type='text' id='name' value='${members[index].name}'  />
-                    <input type='number' id='age' value='${members[index].age}' />
-                    <button onclick='editMember(${index})'>Update</button>
-                </fieldset>
-            `;
-            document.getElementById('form').innerHTML = str;
+
+            document.getElementById('name').value = members[index].name;
+            document.getElementById('age').value = members[index].age;
+
+            let btn = document.getElementById('btn');
+
+            btn.removeEventListener('click', addMember);
+            btn.addEventListener('click', editMember);
+
+            btn.indexValue = index;
+
+            btn.textContent = 'Update';
+
+
+            document.getElementById('legendInfo').textContent = 'Edit member';
         }
         function renderTable() {
-
-            let tableStr = `<table border='1'>`;
-            tableStr = tableStr + `<tr><th>Name</th><th>Age</th></tr>`;
-
+            let tbl = document.getElementById('tbl');
+            tbl.innerHTML = ``;
             for (let i = 0; i < members.length; i++) {
-                tableStr = tableStr + `<tr>
-                    <td>${members[i].name}</td>
-                    <td>${members[i].age}</td>
-                    <td><button onclick="openEditForm(${i})">edit</button></td>
-                    <td><button onclick="deleteMember(${i})">delete</button></td>
-                    </tr>`
-            }
-            tableStr = tableStr + `</table>`;
+                let tr = document.createElement('tr');
 
-            document.getElementById('table').innerHTML = tableStr;
+                let tdName = document.createElement('td');
+                tdName.textContent = members[i].name;
+
+                let tdAge = document.createElement('td');
+                tdAge.textContent = members[i].age;
+
+                let tdEdit = document.createElement('td');
+
+                // let editBtn = document.createElement('button');
+                // editBtn.textContent = 'Edit';
+                // editBtn.addEventListener('click', editMember(i));
+                tdEdit.innerHTML = `<button onclick="openEditForm(${i})">Edit</button>`
+
+                let tdDelete = document.createElement('td');
+                // let deleteBtn = document.createElement('button');
+                // deleteBtn.textContent = 'Delete';
+                // deleteBtn.addEventListener('click', deleteMember(i));
+
+                tdDelete.innerHTML = `<button onclick="deleteMember(${i})">Delete</button>`
+
+
+                tr.appendChild(tdName);
+                tr.appendChild(tdAge);
+                tr.appendChild(tdEdit);
+                tr.appendChild(tdDelete);
+
+                tbl.appendChild(tr);
+            }
         }
 
     </script>
