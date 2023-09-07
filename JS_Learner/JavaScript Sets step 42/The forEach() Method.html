@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let x = new Set();
+
+        x.add('a');
+        x.add('b');
+        x.add('c');
+
+        var text = '';
+
+        for ( z of x.values() ){
+            text  += z + "<br>";
+        }
+        document.write(text);
+    </script>
+</body>
+</html>

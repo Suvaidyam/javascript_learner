@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let JsonObject = {
+            "Name": "Vishal",
+            "Age " : 18 ,
+            "Home" : "katsa",
+        }
+        console.log(typeof JsonObject);
+
+////////////// Object To String //////////////////////////////
+        let ObjectString = JSON.stringify(JsonObject);
+
+        console.log(typeof ObjectString);
+        document.write(ObjectString)
+
+        let z = ObjectString.replace("Vishal",'Kumar'); //// replace ////
+
+        // console.log(z)
+        
+
+////////////// String to Object ////////////////////////////////
+        
+
+        // console.log(y)
+    </script>
+</body>
+</html>

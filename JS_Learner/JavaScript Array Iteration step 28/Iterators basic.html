@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var x = ["Zpple", "Orange" ,"Grapes"];
+        let y = x[Symbol.iterator]();
+
+        y.next().value; // Lock first value
+        y.next().value; // Lock second value
+        document.write(y.next().value); // Display third value
+        
+        
+    </script>
+</body>
+</html>

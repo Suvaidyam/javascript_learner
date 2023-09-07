@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="demo"></p>
+    <script>
+        let cars = [ /// this is a object 
+            { company: "volvo", year: 2016 },
+            { company: "saab", year: 2001 },
+            { company: "BMW", year: 2010 }
+        ];
+
+
+
+        function myObject() {
+            document.getElementById('demo').innerHTML = cars[0].company + " " + cars.year[0] + "<br>" +
+                cars[1].company + " " + cars.year[1] + "<br>" +
+                cars[2].company + " " + cars.year[2]
+                ;
+        }
+        myObject();
+        cars.sort(function(a, b) {return a.year - b.year});
+        myObject();
+
+
+    </script>
+</body>
+
+</html>

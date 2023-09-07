@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var x = new Map();
+
+        x.set('vishal1',500);
+        x.set('visha2',300);
+        x.set('vishal3',400);
+
+        let text ="";
+
+        x.forEach(function(value,key){
+            text += key + ' ' + value + "<br>";
+
+        });
+
+
+            document.write(text)
+    </script>
+</body>
+</html>

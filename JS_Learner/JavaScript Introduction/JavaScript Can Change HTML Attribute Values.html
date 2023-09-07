@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> What Can JawaScript Do </h1>
+    <p>JawaScript can change HTMl Attribute values.</p>
+    <p>In this case JawaScript Chnage the value of the src attribute of an image .</p>
+
+    <button type="button" onclick="document.getElementById('myImage').src='pic_bulbon.gif'">Turn on the light</button>
+
+    <img id="myImage" src="pic_bulboff.gif" style="width:100px"> <!-- this image show by default  -->
+
+    <button type="button" onclick="document.getElementById('myImage').src='pic_bulboff.gif'">Turn off the light</button>
+                                                        <!-- click on this button and than apply this image and display  -->
+</body>
+</html>
