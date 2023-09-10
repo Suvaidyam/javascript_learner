@@ -1,0 +1,74 @@
+.flex1_div{
+    display: flex;
+    justify-content:space-evenly;
+}
+.student_data{
+    background-color: rgb(235, 235, 235);
+    height: 700px;
+    border: 8px solid rgb(9, 96, 179);
+    border-radius: 20px;
+    
+}
+.student_data:hover{
+    box-shadow: 15px 15px 40px rgb(9, 96, 179);
+}
+.student_Enroll{
+    width: 100%;
+    height: 700px;
+    /* margin-top: 50px; */
+    border: 8px solid rgb(59, 134, 59);
+    border-radius: 20px;
+    /* display: flex;
+    justify-content: space-evenly; */
+    background-color: rgb(235, 235, 235);
+}
+.student_Enroll:hover{
+    box-shadow: 15px 15px 40px rgb(59, 134, 59);
+
+}
+.namejs{
+    display: inline-block;
+    padding-left: 18px;
+    padding-right: 38px;
+}
+
+.flex1_div{
+    width: 100%;
+    height: 1000px;
+    background-image: url(./vasily-koloda-8CqDvPuo_kI-unsplash.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+/* .namejsE{
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 47px;
+} */
+.h1_student{
+    text-align: center;
+    text-decoration: none;
+    margin: 0px;
+    margin-top: 40px;
+    background-color:rgb(9, 96, 179) ;
+    width: 280px;
+    margin-left: 60px;
+    padding-top: 8px;
+    border-radius: 10px 10px 0px 0px;
+    color: white;
+}
+.h1_student2{
+    text-align: center;
+    text-decoration: none;
+    margin: 0px;
+    margin-top: 40px;
+    background-color:rgb(59, 134, 59) ;
+    width: 280px;
+    margin-left: 70px;
+    padding-top: 8px;
+    border-radius: 10px 10px 0px 0px;
+    color: white;
+}
+.width_30{
+    width: 30%;
+}
